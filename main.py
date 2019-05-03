@@ -18,10 +18,10 @@ class Tetris:
         pygame.display.set_caption("Tetrix")
         self.foreground = pygame.Surface(cst.BOARD_SIZE)
         self.foreground.fill(cst.BLACK)
-        self.screen.blit(self.background,(0,0))
-        self.screen.blit(self.foreground,(cst.MARGIN,cst.MARGIN))
 
     def draw(self):
+        self.screen.blit(self.background,(0,0))
+        self.screen.blit(self.foreground,(cst.MARGIN,cst.MARGIN))
         pygame.display.flip()
         
     def run(self):
