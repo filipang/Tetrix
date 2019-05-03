@@ -29,12 +29,12 @@ class Tetris:
         self.foreground = pygame.Surface(cst.BOARD_SIZE)
         self.foreground.fill(cst.BLACK)
         self.blocks = matrix(cst.BLOCK_WIDTH+2, cst.BLOCK_HEIGHT+2)
-        for i in Range(cst.BLOCK_WIDTH+2):
-            self.blocks[i][0] = true
-            self.blocks[i][cst.BLOCK_HEIGHT-1] = true
-        for i in Range(cst.BLOCK_HEIGHT+2):
-            self.blocks[0][i] = true
-            self.blocks[cst.BLOCK_WIDTH-1][i] = true
+        for i in range(cst.BLOCK_WIDTH+2):
+            self.blocks[i][0] = True
+            self.blocks[i][cst.BLOCK_HEIGHT-1] = True
+        for i in range(cst.BLOCK_HEIGHT+2):
+            self.blocks[0][i] = True
+            self.blocks[cst.BLOCK_WIDTH-1][i] = True
 
     def draw(self):
         self.screen.blit(self.background,(0,0))
@@ -45,7 +45,7 @@ class Tetris:
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
         #b=block.Block(cst.BLUE,[3,3],False,self.foreground)
         self.ON = True
-        self.currentForm = forms.Square([0, 0], self.foreground)
+        self.currentForm = forms.Square([0, 0], self.foreground,self.blocks)
         self.draw()
         while self.ON:
 
