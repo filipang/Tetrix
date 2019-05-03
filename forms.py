@@ -4,55 +4,67 @@ import constants as cst
 
 class Form:
     def __init__(self,center,color,surface,board):
-        self.center=center
+        self.center=center.copy()
         self.surface=surface
         self.color=color
         self.board = board
-        self.blocks=[]     
-    def rotate(self):
-        return
-    def down(self,nr=1):
-        #print(len(self.blocks))
-        ok = False
-        for b in self.blocks:
-            if not b.can_down():
-                return
-            
-        for b in self.blocks:
-            pygame.draw.rect(b.surface, cst.BLACK, b.rect)
-        for b in self.blocks:
-            b.down(nr,False)
+        self.blocks=[]
 
-    def left(self,nr=1):
-        #print(len(self.blocks))
-        ok = False
+    def moveWith(self,x,y,f=True):
         for b in self.blocks:
-            if not b.can_left():
+            if not b.can(b.coords[0]+x,b.coords[1]+y):
                 return
-        
         for b in self.blocks:
             pygame.draw.rect(b.surface, cst.BLACK, b.rect)
         for b in self.blocks:
-            b.left(nr,False)
+            b.moveWith(x,y,False)
+        self.center[0]+=x
+        self.center[1]+=y
+        
+    def rotate(self,offset_x = 0, offset_y = 0): #clock-wise rotation
 
-    def right(self,nr=1):
-        #print(len(self.blocks))
-        ok = False
-        for b in self.blocks:
-            if not b.can_right():
-                return
-        
-        for b in self.blocks:
-            pygame.draw.rect(b.surface, cst.BLACK, b.rect)
-        for b in self.blocks:
-            b.right(nr,False)
-    
-    def rot_ck(self): #clock-wise rotation
         for b in self.blocks:
             x = b.coords[0]
             y = b.coords[1]
-            center_x = b.center[0]
-            center_y = b.center[1]
+            center_x = self.center[0]
+            center_y = self.center[1]
+            x = x - center_x
+            y = y - center_y
+            new_x = center_x - y + offset_x
+            new_y = center_y + x + offset_y
+            if not(b.can(new_x,new_y)):
+                if offset_x==0 and offset_y==0:
+                    offx=[1,-1,0,0,-2,2,1,1,0,0,-1,-1,-1,1,-1,-2,1,2,-2,2]
+                    offy=[0,0,1,-1,0,0,1,-1,2,-2,1,-1,2,-2,-2,1,2,-1,-1,1]
+                    for i in range(len(offx)):
+                        if(self.rotate(offx[i],offy[i])):
+                            return True
+
+                    return False
+                else:
+                    return False
+
+
+        for b in self.blocks:
+            b.delete()
+
+        for b in self.blocks:
+            x = b.coords[0]
+            y = b.coords[1]
+            center_x = self.center[0]
+            center_y = self.center[1]
+            x = x - center_x
+            y = y - center_y
+            new_x = center_x - y
+            new_y = center_y + x
+
+            b.move(center_x-y+offset_x,center_y+x+offset_y,False)
+
+        self.center[0]+=offset_x
+        self.center[1]+=offset_y
+
+        return True
+
 
 class Square(Form):
     def __init__(self,center,surface, board):
@@ -67,6 +79,7 @@ class Square(Form):
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[0]-=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
+
     # Rotate sta
     
 class L1(Form):
@@ -126,9 +139,3 @@ class Line(Form):
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[0]+=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
-
-
-if("__main__"==__name__):## Test ONLY
-    s=Square([33,33],[200,200,200],22)
-    s.rotate()
-    print(s)

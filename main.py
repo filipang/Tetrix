@@ -15,9 +15,9 @@ def matrix(n,m):
     for i in range(n):
         M.append([])
         for j in range(m):
-            M[i].append(False)
-    return M
-    
+            M[i].append(None)
+
+    return M  
     
 class Tetris:
     def __init__(self):
@@ -29,12 +29,6 @@ class Tetris:
         self.foreground = pygame.Surface(cst.BOARD_SIZE)
         self.foreground.fill(cst.BLACK)
         self.blocks = matrix(cst.BLOCK_WIDTH+2, cst.BLOCK_HEIGHT+2)
-        for i in range(cst.BLOCK_WIDTH+2):
-            self.blocks[i][0] = True
-            self.blocks[i][cst.BLOCK_HEIGHT+1] = True
-        for i in range(cst.BLOCK_HEIGHT+2):
-            self.blocks[0][i] = True
-            self.blocks[cst.BLOCK_WIDTH+1][i] = True
         #print (self.blocks)
 
     def draw(self):
@@ -44,9 +38,9 @@ class Tetris:
         
     def run(self):
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
-        #b=block.Block(cst.BLUE,[3,3],False,self.foreground)
+        self.blocks[3][3]=block.Block(cst.BLUE,[3,3],False,self.foreground,self.blocks)
         self.ON = True
-        self.currentForm = forms.Square([1, 1], self.foreground,self.blocks)
+        self.currentForm = forms.L1([2,2], self.foreground,self.blocks)
         self.draw()
         while self.ON:
 
@@ -55,20 +49,32 @@ class Tetris:
                 if (event.type == pygame.QUIT):
                     self.ON=False
                     break;
+
                 #ESC = exit()
                 if(event.type==pygame.KEYDOWN):
                     if(event.key==27):
                         self.ON=False
                         break;
+                    #DOWN arrow down
                     if(event.key==274):
-                        #b.down()
-                        self.currentForm.down()
+                        self.currentForm.moveWith(0,1)
+
+                    #RIGHT arrow right
                     if(event.key==275):
-                        #b.right()
-                        self.currentForm.right()
+                        self.currentForm.moveWith(1,0)
+
+                    #LEFT arrow left
                     if(event.key==276):
-                        #b.left()
-                        self.currentForm.left()
+                        self.currentForm.moveWith(-1,0)
+
+                    #ROTATE arrow up
+                    if(event.key==273):
+                        self.currentForm.rotate()
+
+                    #UP w (DEBUGING FEATURE NOT BUG)
+                    if(event.key==119):
+                        self.currentForm.moveWith(0,-1)
+
                     #print (event.key)
             self.draw()
         exit()
