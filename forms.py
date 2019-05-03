@@ -11,16 +11,21 @@ class Form:
         self.blocks=[]
 
     def moveWith(self,x,y,f=True):
-        for b in self.blocks:
-            if not b.can(b.coords[0]+x,b.coords[1]+y):
-                return
+        if(f):
+            for b in self.blocks:
+                if not b.can(b.coords[0]+x,b.coords[1]+y):
+                    return
         for b in self.blocks:
             pygame.draw.rect(b.surface, cst.BLACK, b.rect)
         for b in self.blocks:
             b.moveWith(x,y,False)
         self.center[0]+=x
         self.center[1]+=y
-        
+    
+    def delete(self):
+        for b in self.blocks:
+            b.delete()
+    
     def rotate(self,offset_x = 0, offset_y = 0): #clock-wise rotation
 
         for b in self.blocks:
@@ -142,7 +147,7 @@ class Line(Form):
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[0]+=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
-        center[0]+=1
+        center[0]-=3
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         
 class T(Form):

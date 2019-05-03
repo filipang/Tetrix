@@ -3,6 +3,7 @@ import sys
 import constants as cst
 import block 
 import forms
+import piece_constructor
 
 def exit():
     print("BYE") #debug
@@ -29,16 +30,20 @@ class Tetris:
         self.foreground = pygame.Surface(cst.BOARD_SIZE)
         self.foreground.fill(cst.BLACK)
         self.blocks = matrix(cst.BLOCK_WIDTH+2, cst.BLOCK_HEIGHT+2)
+        self.displayer=pygame.Surface(cst.DISPLAYER_SIZE)
+        self.displayer.fill(cst.GRAY)
+        self.generator=piece_constructor.PieceConstructor(self.displayer,self.blocks)
         #print (self.blocks)
 
     def draw(self):
         self.screen.blit(self.background,(0,0))
         self.screen.blit(self.foreground,(cst.MARGIN,0))
+        self.screen.blit(self.displayer,(cst.MARGIN+cst.BOARD_WIDTH,0))
         pygame.display.flip()
         
     def run(self):
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
-        self.blocks[3][3]=block.Block(cst.BLUE,[3,3],False,self.foreground,self.blocks)
+        self.blocks[3][3]=block.Block(cst.GRAY,[3,3],False,self.foreground,self.blocks)
         self.ON = True
         self.currentForm = forms.L1([2,2], self.foreground,self.blocks)
         self.draw()
