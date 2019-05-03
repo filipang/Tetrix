@@ -8,7 +8,7 @@ class Form:
         self.surface=surface
         self.color=color
         self.board = board
-        self.blocks=[]     
+        self.blocks=[]
 
     def moveWith(self,x,y,f=True):
         for b in self.blocks:

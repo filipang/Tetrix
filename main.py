@@ -15,13 +15,7 @@ def matrix(n,m):
     for i in range(n):
         M.append([])
         for j in range(m):
-            M[i].append(False)
-
-    for i in range(cst.BLOCK_WIDTH+2):
-        M[i][cst.BLOCK_HEIGHT+1] = True
-    for i in range(cst.BLOCK_HEIGHT+2):
-        M[0][i] = True
-        M[cst.BLOCK_WIDTH+1][i] = True
+            M[i].append(None)
 
     return M  
     
@@ -44,7 +38,7 @@ class Tetris:
         
     def run(self):
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
-        #b=block.Block(cst.BLUE,[3,3],False,self.foreground)
+        self.blocks[3][3]=block.Block(cst.BLUE,[3,3],False,self.foreground,self.blocks)
         self.ON = True
         self.currentForm = forms.L1([2,2], self.foreground,self.blocks)
         self.draw()
@@ -80,7 +74,7 @@ class Tetris:
                     #UP w (DEBUGING FEATURE NOT BUG)
                     if(event.key==119):
                         self.currentForm.moveWith(0,-1)
-                        
+
                     #print (event.key)
             self.draw()
         exit()

@@ -21,7 +21,7 @@ class Block:
     def can(self,x,y):
         if x<=0 or y<=0 or x>cst.BLOCK_WIDTH or y>cst.BLOCK_HEIGHT:
             return False
-        return not(self.board[x][y])
+        return (self.board[x][y]==None)
 
     def move(self,x,y,f=True):
         if(f):
