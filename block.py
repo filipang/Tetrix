@@ -1,16 +1,19 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May  3 14:35:07 2019
-
-@author: User
-"""
 import pygame
+import constants as cst
+
+
+def get_position(int x,int y):
+	pos_x = cst.BLOCK_SIZE*x + cst.MARGIN
+	pos_y = cst.BLOCK_SIZE*y + cst.MARGIN
+	return x,y
+
 class Block:
-    def __init__(self, color, position, fixed, surface):
+    def __init__(self, color, coords, fixed, surface):
         self.color = color
-        self.position = position
+        self.coords = position
         self.fixed = fixed
-        self.rect = pygame.Rect(position[0],position[1], 50, 50)
+        x,y = get_position(coords[0],coords[1])
+        self.rect = pygame.Rect(x,y,cst.BLOCK_SIZE,cst.BLOCK_SIZE)
         pygame.draw.rect(surface, color, self.rect)
-        #print("Hallelujah!")
-        
+
+    
