@@ -8,7 +8,17 @@ def exit():
     print("BYE") #debug
     pygame.quit()
     sys.exit()
-
+    
+    
+def matrix(n,m):
+    M=[]
+    for i in range(n):
+        M.append([])
+        for j in range(m):
+            M[i].append(j)
+    return M
+    
+    
 class Tetris:
     def __init__(self):
         pygame.init()
@@ -35,7 +45,8 @@ class Tetris:
             
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
-                    exit()
+                    self.ON=False
+                    break;
                 #ESC = exit()
                 if(event.type==pygame.KEYDOWN):
                     if(event.key==27):
