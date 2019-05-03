@@ -64,7 +64,10 @@ class Form:
         self.center[1]+=offset_y
 
         return True
-
+    
+    def lock(self):
+        for b in self.blocks:
+            self.board[b.coords[0]][b.coords[1]] = b
 
 class Square(Form):
     def __init__(self,center,surface, board):
