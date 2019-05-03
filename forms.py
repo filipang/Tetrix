@@ -4,7 +4,7 @@ import constants as cst
 
 class Form:
     def __init__(self,center,color,surface,board):
-        self.center=center
+        self.center=center.copy()
         self.surface=surface
         self.color=color
         self.board = board
@@ -89,6 +89,7 @@ class Square(Form):
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[0]-=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
+
     # Rotate sta
     
 class L1(Form):

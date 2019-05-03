@@ -46,7 +46,7 @@ class Tetris:
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
         #b=block.Block(cst.BLUE,[3,3],False,self.foreground)
         self.ON = True
-        self.currentForm = forms.L1([4,4], self.foreground,self.blocks)
+        self.currentForm = forms.L1([2,2], self.foreground,self.blocks)
         self.draw()
         while self.ON:
 
