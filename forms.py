@@ -9,8 +9,7 @@ class Form:
         self.color=color
         self.board = board
         self.blocks=[]     
-    def rotate(self):
-        return
+
     def down(self,nr=1):
         #print(len(self.blocks))
         ok = False
@@ -74,7 +73,8 @@ class Form:
             new_x = center_x - y
             new_y = center_y + x
 
-            b.move(-y-x,x-y,False)
+            b.move(center_x-y,center_y+x,False)
+
 
 class Square(Form):
     def __init__(self,center,surface, board):

@@ -66,10 +66,10 @@ class Block:
             if(not(self.can(self.coords[0]+x,self.coords[1]+y))):
                 return
             pygame.draw.rect(self.surface,cst.BLACK,self.rect)
-        self.coords[0]+=x;
-        self.coords[1]+=y;
+        self.coords[0]=x;
+        self.coords[1]=y;
         x,y = get_position(x,y)
-        self.rect.move_ip(x,y)
+        self.rect = pygame.Rect(x+1,y+1,cst.BLOCK_SIZE-1,cst.BLOCK_SIZE-1)
         pygame.draw.rect(self.surface,self.color,self.rect)
 
     def delete(self):

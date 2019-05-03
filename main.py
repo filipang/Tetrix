@@ -16,6 +16,13 @@ def matrix(n,m):
         M.append([])
         for j in range(m):
             M[i].append(False)
+
+    for i in range(cst.BLOCK_WIDTH+2):
+        M[i][cst.BLOCK_HEIGHT+1] = True
+    for i in range(cst.BLOCK_HEIGHT+2):
+        M[0][i] = True
+        M[cst.BLOCK_WIDTH+1][i] = True
+
     return M  
     
 class Tetris:
@@ -28,12 +35,6 @@ class Tetris:
         self.foreground = pygame.Surface(cst.BOARD_SIZE)
         self.foreground.fill(cst.BLACK)
         self.blocks = matrix(cst.BLOCK_WIDTH+2, cst.BLOCK_HEIGHT+2)
-        for i in range(cst.BLOCK_WIDTH+2):
-            self.blocks[i][0] = True
-            self.blocks[i][cst.BLOCK_HEIGHT+1] = True
-        for i in range(cst.BLOCK_HEIGHT+2):
-            self.blocks[0][i] = True
-            self.blocks[cst.BLOCK_WIDTH+1][i] = True
         #print (self.blocks)
 
     def draw(self):
@@ -55,6 +56,9 @@ class Tetris:
                     self.ON=False
                     break;
                 #ESC = exit()
+
+                print(self.currentForm.center)
+
                 if(event.type==pygame.KEYDOWN):
                     if(event.key==27):
                         self.ON=False
