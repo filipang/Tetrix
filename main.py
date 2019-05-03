@@ -2,7 +2,6 @@ import pygame
 import sys
 import constants as cst
 import block 
-import forms
 
 def exit():
     print("BYE") #debug
@@ -12,7 +11,6 @@ def exit():
 class Tetris:
     def __init__(self):
         pygame.init()
-        self.ON=True
         self.screen = pygame.display.set_mode(cst.SIZE)
         self.background = pygame.Surface(self.screen.get_size())
         self.background.fill(cst.GRAY)  
@@ -24,29 +22,25 @@ class Tetris:
         self.screen.blit(self.background,(0,0))
         self.screen.blit(foreground,(cst.MARGIN,cst.MARGIN))
         pygame.display.flip()
-
+        
     def run(self):
         self.draw()
-        while self.ON:
+        while True:
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
-                    self.ON=False
-                    break;
+                    exit()
                 #ESC = exit()
                 if(event.type==pygame.KEYDOWN):
                     if(event.key==27):
-                        self.ON=False
-                        break;
+                        exit()
         
 
 
 
             self.draw()
-        ####
-        exit()
 
 def main():
     game = Tetris()
     game.run()
-if("__main__"==__name__):
-    main()
+
+main()
