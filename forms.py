@@ -12,7 +12,7 @@ class Form:
 class Square(Form):
     def __init__(self,center,color,surface):
         Form.__init__(self,center,color,surface)
-        #self.blocks.append(Block(color,center,False,surface))
+        self.blocks.append(Block(color,center,False,surface))
     # Rotate sta
     
 if("__main__"==__name__):## Test ONLY
