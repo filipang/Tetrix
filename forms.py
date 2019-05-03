@@ -81,6 +81,8 @@ class Square(Form):
         self.blocks.append(block.Block(self.color,center,False,surface, board))
 
     # Rotate sta
+    def rotate(self):
+        return
     
 class L1(Form):
     def __init__(self,center,surface, board):
@@ -139,3 +141,16 @@ class Line(Form):
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[0]+=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
+        
+class T(Form):
+    def __init__(self,center,surface, board):  
+        Form.__init__(self,center,cst.PURPLE,surface, board)
+        self.blocks.append(block.Block(self.color,center,False,surface, board))
+        center[0]-=1;
+        self.blocks.append(block.Block(self.color,center,False,surface, board))
+        center[0]+=2;
+        self.blocks.append(block.Block(self.color,center,False,surface, board))
+        center[0]-=1;
+        center[1]-=1;
+        self.blocks.append(block.Block(self.color,center,False,surface, board))
+
