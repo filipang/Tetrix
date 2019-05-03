@@ -47,7 +47,7 @@ class Form:
         for b in self.blocks:
             b.right(nr,False)
     
-    def rot_ck: #clock-wise rotation
+    def rot_ck(self): #clock-wise rotation
         for b in self.blocks:
             x = b.coords[0]
             y = b.coords[1]
