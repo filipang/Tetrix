@@ -10,7 +10,7 @@ def get_position(x, y):
 class Block:
     def __init__(self, color, coords, fixed, surface):
         self.color = color
-        self.coords = position
+        self.coords = coords
         self.fixed = fixed
         x,y = get_position(coords[0],coords[1])
         self.rect = pygame.Rect(x,y,cst.BLOCK_SIZE,cst.BLOCK_SIZE)
