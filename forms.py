@@ -13,10 +13,13 @@ class Square(Form):
     def __init__(self,center,color,surface):
         Form.__init__(self,center,color,surface)
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.blocks.append(Block(color,center,False,surface))
     # Rotate sta
     
 =======
+=======
+>>>>>>> parent of 3736848... Moves
         self.blocks.append(block.Block(color,center,False,surface))
         center[0]+=1
         self.blocks.append(block.Block(color,center,False,surface))
@@ -83,6 +86,9 @@ class Line(Form):
         self.blocks.append(block.Block(color,center,False,surface))
         center[0]+=1
         self.blocks.append(block.Block(color,center,False,surface))
+<<<<<<< HEAD
+>>>>>>> parent of 3736848... Moves
+=======
 >>>>>>> parent of 3736848... Moves
 if("__main__"==__name__):## Test ONLY
     s=Square([33,33],[200,200,200],22)

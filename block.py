@@ -4,8 +4,13 @@ import constants as cst
 
 def get_position(x, y):
 <<<<<<< HEAD
+<<<<<<< HEAD
 	pos_x = cst.BLOCK_SIZE*x + cst.MARGIN
 	pos_y = cst.BLOCK_SIZE*y + cst.MARGIN
+=======
+	x = cst.BLOCK_SIZE*x + cst.MARGIN
+	y = cst.BLOCK_SIZE*y + cst.MARGIN
+>>>>>>> parent of 3736848... Moves
 =======
 	x = cst.BLOCK_SIZE*x + cst.MARGIN
 	y = cst.BLOCK_SIZE*y + cst.MARGIN
@@ -19,7 +24,11 @@ class Block:
         self.fixed = fixed
         x,y = get_position(coords[0],coords[1])
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.rect = pygame.Rect(x,y,cst.BLOCK_SIZE,cst.BLOCK_SIZE)
+=======
+        self.rect = pygame.Rect(x,y,cst.BLOCK_SIZE-1,cst.BLOCK_SIZE-1)
+>>>>>>> parent of 3736848... Moves
 =======
         self.rect = pygame.Rect(x,y,cst.BLOCK_SIZE-1,cst.BLOCK_SIZE-1)
 >>>>>>> parent of 3736848... Moves

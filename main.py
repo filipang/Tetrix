@@ -26,8 +26,11 @@ class Tetris:
     def run(self):
         self.draw()
 <<<<<<< HEAD
+<<<<<<< HEAD
         while True:
 =======
+=======
+>>>>>>> parent of 3736848... Moves
         s=forms.Line([3,3],cst.BLUE,self.foreground)
         #b=block.Block(cst.BLUE,[3,3],False,self.foreground)
         while self.ON:
@@ -43,6 +46,9 @@ class Tetris:
 =======
                         self.ON=False
                         break;
+<<<<<<< HEAD
+>>>>>>> parent of 3736848... Moves
+=======
 >>>>>>> parent of 3736848... Moves
         
 
