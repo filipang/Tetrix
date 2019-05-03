@@ -3,14 +3,14 @@ import constants as cst
 
 
 def get_position(x, y):
-	x = cst.BLOCK_SIZE*x
-	y = cst.BLOCK_SIZE*y
+	x = cst.BLOCK_SIZE*(x-1)
+	y = cst.BLOCK_SIZE*(y-1)
 	return x,y
 
 class Block:
     def __init__(self, color, coords, fixed, surface,board):
         self.color = color
-        self.coords = coords
+        self.coords = coords.copy()
         self.board=board
         self.fixed = fixed
         self.surface = surface
@@ -24,12 +24,12 @@ class Block:
                 return
             pygame.draw.rect(self.surface, cst.BLACK, self.rect)
         self.coords[1]+=1
-        x,y = get_position(0,1)
+        x,y = get_position(1,2)
         self.rect.move_ip(x,y)
         pygame.draw.rect(self.surface, self.color, self.rect)
 
     def can_down(self):
-        return self.board[self.coords[0]][self.coords[1]+1]
+        return not self.board[self.coords[0]][self.coords[1]+1]
         
     def left(self,nr=1,f=True):
         if(f):
@@ -37,12 +37,12 @@ class Block:
                 return
             pygame.draw.rect(self.surface, cst.BLACK, self.rect)
         self.coords[0]-=1
-        x,y = get_position(-1,0)
+        x,y = get_position(0,1)
         self.rect.move_ip(x,y)
         pygame.draw.rect(self.surface, self.color, self.rect)
 
     def can_left(self):
-        return self.board[self.coords[0]-1][self.coords[1]]
+        return not self.board[self.coords[0]-1][self.coords[1]]
         
     def right(self,nr=1,f=True):
         if(f):
@@ -50,10 +50,10 @@ class Block:
                 return
             pygame.draw.rect(self.surface, cst.BLACK, self.rect)
         self.coords[0]+=1
-        x,y = get_position(1,0)
+        x,y = get_position(2,1)
         self.rect.move_ip(x,y)
         pygame.draw.rect(self.surface, self.color, self.rect)
         
 
     def can_right(self):
-        return self.board[self.coords[0]+1][self.coords[1]]
+        return not self.board[self.coords[0]+1][self.coords[1]]
