@@ -41,7 +41,43 @@ class L2(Form):
         center[0]+=2
         self.blocks.append(block.Block(color,center,False,surface))
         center[1]-=1
-        self.blocks.append(block.Block(color,center,False,surface))        
+        self.blocks.append(block.Block(color,center,False,surface))  
+        
+class Fulger1(Form):
+    def __init__(self,center,color,surface):
+        Form.__init__(self,center,color,surface)
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]+=1
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]-=1
+        center[1]-=1
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]-=1
+        self.blocks.append(block.Block(color,center,False,surface))
+
+class Fulger2(Form):
+    def __init__(self,center,color,surface):
+        Form.__init__(self,center,color,surface)
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]-=1
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]+=1
+        center[1]-=1
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]+=1
+        self.blocks.append(block.Block(color,center,False,surface))
+  
+
+class Line(Form):
+    def __init__(self,center,color,surface):  
+        Form.__init__(self,center,color,surface)
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]+=1
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]+=1
+        self.blocks.append(block.Block(color,center,False,surface))
+        center[0]+=1
+        self.blocks.append(block.Block(color,center,False,surface))
 if("__main__"==__name__):## Test ONLY
     s=Square([33,33],[200,200,200],22)
     s.rotate()

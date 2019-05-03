@@ -27,7 +27,7 @@ class Tetris:
 
     def run(self):
         self.draw()
-        s=forms.L2([3,3],cst.BLUE,self.foreground)
+        s=forms.Line([3,3],cst.BLUE,self.foreground)
         #b=block.Block(cst.BLUE,[3,3],False,self.foreground)
         while self.ON:
             for event in pygame.event.get():
