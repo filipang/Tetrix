@@ -12,9 +12,12 @@ class Form:
         return
     def down(self,nr=1):
         #print(len(self.blocks))
+        #for b in self.blocks:
+            
         for b in self.blocks:
             pygame.draw.rect(b.surface, cst.BLACK, b.rect)
         for b in self.blocks:
+            
             b.down(nr,False)
 
     def left(self,nr=1):
