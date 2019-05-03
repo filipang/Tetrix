@@ -4,37 +4,43 @@ import constants as cst
 import block 
 
 def exit():
-    print("BYE")
+    print("BYE") #debug
     pygame.quit()
     sys.exit()
 
-def init():
-	pygame.init()
-	screen = pygame.display.set_mode(cst.SIZE)
-	pygame.display.set_caption("Tetrix")
-	background = pygame.Surface(screen.get_size())
+class Tetris:
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode(cst.SIZE)
+        self.background = pygame.Surface(self.screen.get_size())
+        self.background.fill(cst.GRAY)  
+        pygame.display.set_caption("Tetrix")
 
-	background.fill(cst.BLACK)
+    def draw(self):
+        foreground = pygame.Surface(cst.BOARD_SIZE)
+        foreground.fill(cst.BLACK)
+        self.screen.blit(self.background,(0,0))
+        self.screen.blit(foreground,(cst.MARGIN,cst.MARGIN))
+        pygame.display.flip()
 
-	screen.blit(background,(0,0))
-	pygame.display.flip()
-
-	return background,screen
-
-def run(background,screen):
-	while True:
-		for event in pygame.event.get():
-			if (event.type == pygame.QUIT):
-				exit()
-			if(event.type==pygame.KEYDOWN):
-				if(event.key==27):
-					exit()
+    def run(self):
+        self.draw()
+        while True:
+            for event in pygame.event.get():
+                if (event.type == pygame.QUIT):
+                    exit()
+                #ESC = exit()
+                if(event.type==pygame.KEYDOWN):
+                    if(event.key==27):
+                        exit()
         
-		screen.blit(background,(0,0))
-		pygame.display.flip()
+
+
+
+            self.draw()
 
 def main():
-	background,screen = init()
-	run(background,screen)
+    game = Tetris()
+    game.run()
 
 main()

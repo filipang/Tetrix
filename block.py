@@ -2,7 +2,7 @@ import pygame
 import constants as cst
 
 
-def get_position(int x,int y):
+def get_position(x, y):
 	pos_x = cst.BLOCK_SIZE*x + cst.MARGIN
 	pos_y = cst.BLOCK_SIZE*y + cst.MARGIN
 	return x,y
