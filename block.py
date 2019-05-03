@@ -3,8 +3,8 @@ import constants as cst
 
 
 def get_position(x, y):
-	pos_x = cst.BLOCK_SIZE*x + cst.MARGIN
-	pos_y = cst.BLOCK_SIZE*y + cst.MARGIN
+	x = cst.BLOCK_SIZE*x + cst.MARGIN
+	y = cst.BLOCK_SIZE*y + cst.MARGIN
 	return x,y
 
 class Block:
@@ -13,7 +13,7 @@ class Block:
         self.coords = coords
         self.fixed = fixed
         x,y = get_position(coords[0],coords[1])
-        self.rect = pygame.Rect(x,y,cst.BLOCK_SIZE,cst.BLOCK_SIZE)
+        self.rect = pygame.Rect(x,y,cst.BLOCK_SIZE-1,cst.BLOCK_SIZE-1)
         pygame.draw.rect(surface, color, self.rect)
 
     
