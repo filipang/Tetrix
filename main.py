@@ -16,8 +16,7 @@ def matrix(n,m):
         M.append([])
         for j in range(m):
             M[i].append(False)
-    return M
-    
+    return M  
     
 class Tetris:
     def __init__(self):
@@ -46,7 +45,7 @@ class Tetris:
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
         #b=block.Block(cst.BLUE,[3,3],False,self.foreground)
         self.ON = True
-        self.currentForm = forms.Square([1, 1], self.foreground,self.blocks)
+        self.currentForm = forms.L1([4,4], self.foreground,self.blocks)
         self.draw()
         while self.ON:
 
@@ -69,6 +68,8 @@ class Tetris:
                     if(event.key==276):
                         #b.left()
                         self.currentForm.left()
+                    if(event.key==273):
+                        self.currentForm.rotate()
                     #print (event.key)
             self.draw()
         exit()

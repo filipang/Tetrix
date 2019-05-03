@@ -57,3 +57,25 @@ class Block:
 
     def can_right(self):
         return not self.board[self.coords[0]+1][self.coords[1]]
+
+    def can(self,x,y):
+        return not(self.board[x][y])
+
+    def move(self,x,y,f=True):
+        if(f):
+            if(not(self.can(self.coords[0]+x,self.coords[1]+y))):
+                return
+            pygame.draw.rect(self.surface,cst.BLACK,self.rect)
+        self.coords[0]+=x;
+        self.coords[1]+=y;
+        x,y = get_position(x,y)
+        self.rect.move_ip(x,y)
+        pygame.draw.rect(self.surface,self.color,self.rect)
+
+    def delete(self):
+          pygame.draw.rect(self.surface,cst.BLACK,self.rect)
+
+    def draw(self):
+        pygame.draw.rect(self.surface,self.color,self.rect)
+
+

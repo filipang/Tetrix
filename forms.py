@@ -17,7 +17,7 @@ class Form:
         for b in self.blocks:
             if not b.can_down():
                 return
-            
+        self.center[1]+=nr
         for b in self.blocks:
             pygame.draw.rect(b.surface, cst.BLACK, b.rect)
         for b in self.blocks:
@@ -29,7 +29,7 @@ class Form:
         for b in self.blocks:
             if not b.can_left():
                 return
-        
+        self.center[0]-=nr;
         for b in self.blocks:
             pygame.draw.rect(b.surface, cst.BLACK, b.rect)
         for b in self.blocks:
@@ -41,18 +41,40 @@ class Form:
         for b in self.blocks:
             if not b.can_right():
                 return
-        
+        self.center[0]+=nr;
         for b in self.blocks:
             pygame.draw.rect(b.surface, cst.BLACK, b.rect)
         for b in self.blocks:
             b.right(nr,False)
-    
-    def rot_ck(self): #clock-wise rotation
+        
+    def rotate(self): #clock-wise rotation
+
         for b in self.blocks:
             x = b.coords[0]
             y = b.coords[1]
-            center_x = b.center[0]
-            center_y = b.center[1]
+            center_x = self.center[0]
+            center_y = self.center[1]
+            x = x - center_x
+            y = y - center_y
+            new_x = center_x - y
+            new_y = center_y + x
+            if not(b.can(new_x,new_y)):
+                return
+
+        for b in self.blocks:
+            b.delete()
+
+        for b in self.blocks:
+            x = b.coords[0]
+            y = b.coords[1]
+            center_x = self.center[0]
+            center_y = self.center[1]
+            x = x - center_x
+            y = y - center_y
+            new_x = center_x - y
+            new_y = center_y + x
+
+            b.move(-y-x,x-y,False)
 
 class Square(Form):
     def __init__(self,center,surface, board):
@@ -126,9 +148,3 @@ class Line(Form):
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[0]+=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
-
-
-if("__main__"==__name__):## Test ONLY
-    s=Square([33,33],[200,200,200],22)
-    s.rotate()
-    print(s)
