@@ -55,25 +55,32 @@ class Tetris:
                 if (event.type == pygame.QUIT):
                     self.ON=False
                     break;
+
                 #ESC = exit()
-
-                print(self.currentForm.center)
-
                 if(event.type==pygame.KEYDOWN):
                     if(event.key==27):
                         self.ON=False
                         break;
+                    #DOWN arrow down
                     if(event.key==274):
-                        #b.down()
-                        self.currentForm.down()
+                        self.currentForm.moveWith(0,1)
+
+                    #RIGHT arrow right
                     if(event.key==275):
-                        #b.right()
-                        self.currentForm.right()
+                        self.currentForm.moveWith(1,0)
+
+                    #LEFT arrow left
                     if(event.key==276):
-                        #b.left()
-                        self.currentForm.left()
+                        self.currentForm.moveWith(-1,0)
+
+                    #ROTATE arrow up
                     if(event.key==273):
                         self.currentForm.rotate()
+
+                    #UP w (DEBUGING FEATURE NOT BUG)
+                    if(event.key==119):
+                        self.currentForm.moveWith(0,-1)
+                        
                     #print (event.key)
             self.draw()
         exit()

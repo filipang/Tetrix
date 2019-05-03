@@ -18,52 +18,14 @@ class Block:
         self.rect = pygame.Rect(x+1,y+1,cst.BLOCK_SIZE-1,cst.BLOCK_SIZE-1)
         pygame.draw.rect(surface, color, self.rect)
 
-    def down(self,nr=1,f=True):
-        if(f):
-            if(not self.can_down()):
-                return
-            pygame.draw.rect(self.surface, cst.BLACK, self.rect)
-        self.coords[1]+=1
-        x,y = get_position(1,2)
-        self.rect.move_ip(x,y)
-        pygame.draw.rect(self.surface, self.color, self.rect)
-
-    def can_down(self):
-        return not self.board[self.coords[0]][self.coords[1]+1]
-        
-    def left(self,nr=1,f=True):
-        if(f):
-            if(not self.can_left()):
-                return
-            pygame.draw.rect(self.surface, cst.BLACK, self.rect)
-        self.coords[0]-=1
-        x,y = get_position(0,1)
-        self.rect.move_ip(x,y)
-        pygame.draw.rect(self.surface, self.color, self.rect)
-
-    def can_left(self):
-        return not self.board[self.coords[0]-1][self.coords[1]]
-        
-    def right(self,nr=1,f=True):
-        if(f):
-            if(not self.can_right()):
-                return
-            pygame.draw.rect(self.surface, cst.BLACK, self.rect)
-        self.coords[0]+=1
-        x,y = get_position(2,1)
-        self.rect.move_ip(x,y)
-        pygame.draw.rect(self.surface, self.color, self.rect)
-        
-
-    def can_right(self):
-        return not self.board[self.coords[0]+1][self.coords[1]]
-
     def can(self,x,y):
+        if x<=0 or y<=0 or x>cst.BLOCK_WIDTH or y>cst.BLOCK_HEIGHT:
+            return False
         return not(self.board[x][y])
 
     def move(self,x,y,f=True):
         if(f):
-            if(not(self.can(self.coords[0]+x,self.coords[1]+y))):
+            if(not(self.can(x,y))):
                 return
             pygame.draw.rect(self.surface,cst.BLACK,self.rect)
         self.coords[0]=x;
@@ -72,10 +34,13 @@ class Block:
         self.rect = pygame.Rect(x+1,y+1,cst.BLOCK_SIZE-1,cst.BLOCK_SIZE-1)
         pygame.draw.rect(self.surface,self.color,self.rect)
 
+    def moveWith(self,x,y,f=True):
+        x+=self.coords[0]
+        y+=self.coords[1]
+        self.move(x,y,f)
+
     def delete(self):
           pygame.draw.rect(self.surface,cst.BLACK,self.rect)
 
     def draw(self):
         pygame.draw.rect(self.surface,self.color,self.rect)
-
-
