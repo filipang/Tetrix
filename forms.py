@@ -60,7 +60,7 @@ class Square(Form):
         self.blocks.append(block.Block(self.color,center,False,surface, board))
     # Rotate sta
 
-        self.blocks.append(block.Block(self.color,center,False,surface, board))
+        self.blocks.append(block.Block(self.color,center,False,surfac, boarde))
         center[0]+=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[1]+=1

@@ -39,7 +39,7 @@ class Tetris:
 
     def draw(self):
         self.screen.blit(self.background,(0,0))
-        self.screen.blit(self.foreground,(cst.MARGIN,cst.MARGIN))
+        self.screen.blit(self.foreground,(cst.MARGIN,0))
         pygame.display.flip()
         
     def run(self):
@@ -72,7 +72,7 @@ class Tetris:
                     #print (event.key)
             self.draw()
         exit()
-
+        
 
 def main():
     game = Tetris()
