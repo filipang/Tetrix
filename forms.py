@@ -27,7 +27,7 @@ class Form:
         #print(len(self.blocks))
         ok = False
         for b in self.blocks:
-            if(!b.can_left()):
+            if not b.can_left():
                 return
         
         for b in self.blocks:
@@ -39,7 +39,7 @@ class Form:
         #print(len(self.blocks))
         ok = False
         for b in self.blocks:
-            if(!b.can_right()):
+            if not b.can_right():
                 return
         
         for b in self.blocks:
@@ -51,6 +51,8 @@ class Form:
         for b in self.blocks:
             x = b.coords[0]
             y = b.coords[1]
+            center_x = b.center[0]
+            center_y = b.center[1]
 
 class Square(Form):
     def __init__(self,center,surface, board):
