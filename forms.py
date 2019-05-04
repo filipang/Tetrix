@@ -14,7 +14,7 @@ class Form:
         if(f):
             for b in self.blocks:
                 if not b.can(b.coords[0]+x,b.coords[1]+y):
-                    return
+                    return False
         if(f):
             self.delete()
         else:
@@ -23,6 +23,7 @@ class Form:
             b.moveWith(x,y,False)
         self.center[0]+=x
         self.center[1]+=y
+        return True
     
     def delete(self,color=cst.BLACK):
         for b in self.blocks:
@@ -73,16 +74,18 @@ class Form:
         return True
     
     def lock(self):
-        print(self.blocks)
+        #print(self.blocks)
         for b in self.blocks:
             self.board[b.coords[0]] [b.coords[1]] = b
             self.board[0][b.coords[1]]+=1
+        """
         for i in range(1, cst.BLOCK_HEIGHT + 1):
             if self.board[0][i] == cst.BLOCK_WIDTH:
                 for j in range(1,cst.BLOCK_WIDTH + 1):
                     self.board[j][i].delete()
                     self.board[j][i] = None
                 self.board[0][i] = 0
+        """
 
 class Square(Form):
     def __init__(self,center,surface, board):

@@ -26,6 +26,7 @@ class Block:
     def move(self,x,y,f=True):
         if(f):
             if(not(self.can(x,y))):
+                print ("Failded at ",x," ",y)
                 return
             pygame.draw.rect(self.surface,cst.BLACK,self.rect)
         self.coords[0]=x;

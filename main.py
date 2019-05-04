@@ -49,6 +49,22 @@ class Tetris:
     def lock(self):
         self.currentForm.lock()
         self.currentForm=self.generator.get_piece()([5,2],self.foreground,self.blocks)
+        for i in range (1,cst.BLOCK_HEIGHT+1):
+            if(self.blocks[0][i]==cst.BLOCK_WIDTH):
+                self.blocks[0][i]=0
+                for j in range (1,cst.BLOCK_WIDTH+1):
+                    self.blocks[j][i].delete()
+                    self.blocks[j][i]=None
+                for j in range(i-1,0,-1):
+                    self.blocks[0][j+1]=self.blocks[0][j]
+                    for k in range(1,cst.BLOCK_WIDTH+1):
+                        if self.blocks[k][j]!=None:
+                            print("Try to move ",k," ",j)
+                            self.blocks[k][j].moveWith(0,1)
+                            self.blocks[k][j+1]=self.blocks[k][j]
+                        else:
+                            self.blocks[k][j]=None
+                        self.blocks[k][j]=None
     
     def run(self):
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
@@ -93,8 +109,10 @@ class Tetris:
                         self.currentForm.moveWith(0,-1)
 
                     if(event.key==32):
+                        while(self.currentForm.moveWith(0,1)):
+                            None
                         self.lock()
-                    #print (event.key)
+                    print (event.key)
             
             if(cst.GRAVITY and time.time()>=self.time_next):
                 self.time_next=time.time()+cst.TIME_MAX
