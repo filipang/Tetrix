@@ -3,4 +3,5 @@ __pycache__/forms.cpython-36.pyc
 __pycache__/constants.cpython-36.pyc
 __pycache__/block.cpython-36.pyc
 __pycache__/piece_constructor.cpython-36.pyc
-__pycache__/forms.cpython-36.pyc
+__pycache__/*
+*.pyc

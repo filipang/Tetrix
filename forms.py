@@ -12,7 +12,6 @@ class Form:
 
     def checkLost(self):
         for b in self.blocks:
-            print(b.coords[0], " ", b.coords[1])
             if b.coords[1]<1 or self.board[b.coords[0]][b.coords[1]]!=None:
                 return True
         return False
@@ -81,24 +80,24 @@ class Form:
         return True
     
     def lock(self):
-        #print(self.blocks)
         if self.checkLost():
-            pygame.quit()
-            sys.exit()
+            return False
         
         for b in self.blocks:
             self.board[b.coords[0]] [b.coords[1]] = b
             self.board[0][b.coords[1]]+=1
+        return True
+
 
 class Square(Form):
     def __init__(self,center,surface, board):
         Form.__init__(self,center,cst.YELLOW,surface, board)
         self.blocks.append(block.Block(self.color,center,False,surface, board))
-        center[0]+=1
-        self.blocks.append(block.Block(self.color,center,False,surface, board))
-        center[1]+=1
-        self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[0]-=1
+        self.blocks.append(block.Block(self.color,center,False,surface, board))
+        center[1]-=1
+        self.blocks.append(block.Block(self.color,center,False,surface, board))
+        center[0]+=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
 
     # Rotate sta
