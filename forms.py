@@ -73,6 +73,7 @@ class Form:
         return True
     
     def lock(self):
+        print(self.blocks)
         for b in self.blocks:
             self.board[b.coords[0]] [b.coords[1]] = b
             self.board[0][b.coords[1]]+=1
@@ -86,9 +87,6 @@ class Form:
 class Square(Form):
     def __init__(self,center,surface, board):
         Form.__init__(self,center,cst.YELLOW,surface, board)
-        self.blocks.append(block.Block(self.color,center,False,surface, board))
-    # Rotate sta
-
         self.blocks.append(block.Block(self.color,center,False,surface, board))
         center[0]+=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
