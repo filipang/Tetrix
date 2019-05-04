@@ -16,7 +16,10 @@ def matrix(n,m):
     for i in range(n):
         M.append([])
         for j in range(m):
-            M[i].append(None)
+            if(i==0):
+                M[i].append(0)
+            else:
+                M[i].append(None)
 
     return M  
     
@@ -43,7 +46,7 @@ class Tetris:
         
     def run(self):
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
-        self.blocks[3][3]=block.Block(cst.GRAY,[3,3],False,self.foreground,self.blocks)
+        #self.blocks[3][3]=block.Block(cst.GRAY,[3,3],False,self.foreground,self.blocks)
         self.ON = True
         self.currentForm = forms.L1([5,2], self.foreground,self.blocks)
         #self.currentForm=self.generator.get_piece()([5,2],self.foreground,self.blocks)

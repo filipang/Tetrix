@@ -74,7 +74,14 @@ class Form:
     
     def lock(self):
         for b in self.blocks:
-            self.board[b.coords[0]][b.coords[1]] = b
+            self.board[b.coords[0]] [b.coords[1]] = b
+            self.board[0][b.coords[1]]+=1
+        for i in range(1, cst.BLOCK_HEIGHT + 1):
+            if self.board[0][i] == cst.BLOCK_WIDTH:
+                for j in range(1,cst.BLOCK_WIDTH + 1):
+                    self.board[j][i].delete()
+                    self.board[j][i] = None
+                self.board[0][i] = 0
 
 class Square(Form):
     def __init__(self,center,surface, board):
