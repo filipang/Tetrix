@@ -4,6 +4,7 @@ import constants as cst
 import block 
 import forms
 import piece_constructor
+import time
 
 def exit():
     print("BYE") #debug
@@ -36,6 +37,7 @@ class Tetris:
         self.displayer=pygame.Surface(cst.DISPLAYER_SIZE)
         self.displayer.fill(cst.GRAY)
         self.generator=piece_constructor.PieceConstructor(self.displayer,self.blocks)
+        self.time_next=time.time()
         #print (self.blocks)
 
     def draw(self):
@@ -43,7 +45,11 @@ class Tetris:
         self.screen.blit(self.foreground,(cst.MARGIN,0))
         self.screen.blit(self.displayer,(cst.MARGIN+cst.BOARD_WIDTH,0))
         pygame.display.flip()
-        
+    
+    def lock(self):
+        self.currentForm.lock()
+        self.currentForm=self.generator.get_piece()([5,2],self.foreground,self.blocks)
+    
     def run(self):
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
         #self.blocks[3][3]=block.Block(cst.GRAY,[3,3],False,self.foreground,self.blocks)
@@ -78,6 +84,8 @@ class Tetris:
 
                     #ROTATE arrow up
                     if(event.key==273):
+                        self.time_next=min(time.time()+cst.TIME_MAX,self.time_next+cst.TIME_ADD)
+                        print(self.time_next)
                         self.currentForm.rotate()
 
                     #UP w (DEBUGING FEATURE NOT BUG)
@@ -85,9 +93,14 @@ class Tetris:
                         self.currentForm.moveWith(0,-1)
 
                     if(event.key==32):
-                        self.currentForm.lock()
-                        self.currentForm=self.generator.get_piece()([5,2],self.foreground,self.blocks)
+                        self.lock()
                     #print (event.key)
+            
+            if(cst.GRAVITY and time.time()>=self.time_next):
+                self.time_next=time.time()+cst.TIME_MAX
+                if not self.currentForm.moveWith(0,1):#TRUE a mutat
+                    self.lock()
+            
             self.draw()
         exit()
 
