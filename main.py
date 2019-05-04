@@ -47,7 +47,7 @@ class Tetris:
         pygame.display.flip()
     
     def lock(self):
-        self.currentForm.lock()
+        self.currentForm.lock() 
         self.currentForm=self.generator.get_piece()([5,2],self.foreground,self.blocks)
         for i in range (1,cst.BLOCK_HEIGHT+1):
             if(self.blocks[0][i]==cst.BLOCK_WIDTH):
@@ -70,8 +70,8 @@ class Tetris:
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
         #self.blocks[3][3]=block.Block(cst.GRAY,[3,3],False,self.foreground,self.blocks)
         self.ON = True
-        self.currentForm = forms.L1([5,2], self.foreground,self.blocks)
-        #self.currentForm=self.generator.get_piece()([5,2],self.foreground,self.blocks)
+        #self.currentForm = forms.L1([5,2], self.foreground,self.blocks)
+        self.currentForm=self.generator.get_piece()([5,-1],self.foreground,self.blocks)
         self.draw()
         while self.ON:
 

@@ -19,7 +19,7 @@ class Block:
         pygame.draw.rect(surface, color, self.rect)
 
     def can(self,x,y):
-        if x<=0 or y<=0 or x>cst.BLOCK_WIDTH or y>cst.BLOCK_HEIGHT:
+        if x<=0 or x>cst.BLOCK_WIDTH or y>cst.BLOCK_HEIGHT:
             return False
         return (self.board[x][y]==None)
 

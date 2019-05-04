@@ -10,6 +10,13 @@ class Form:
         self.board = board
         self.blocks=[]
 
+    def checkLost(self):
+        for b in self.blocks:
+            print(b.coords[0], " ", b.coords[1])
+            if b.coords[1]<1 or self.board[b.coords[0]][b.coords[1]]!=None:
+                return True
+        return False
+    
     def moveWith(self,x,y,f=True):
         if(f):
             for b in self.blocks:
@@ -75,17 +82,13 @@ class Form:
     
     def lock(self):
         #print(self.blocks)
+        if self.checkLost():
+            pygame.quit()
+            sys.exit()
+        
         for b in self.blocks:
             self.board[b.coords[0]] [b.coords[1]] = b
             self.board[0][b.coords[1]]+=1
-        """
-        for i in range(1, cst.BLOCK_HEIGHT + 1):
-            if self.board[0][i] == cst.BLOCK_WIDTH:
-                for j in range(1,cst.BLOCK_WIDTH + 1):
-                    self.board[j][i].delete()
-                    self.board[j][i] = None
-                self.board[0][i] = 0
-        """
 
 class Square(Form):
     def __init__(self,center,surface, board):
