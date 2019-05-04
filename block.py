@@ -39,8 +39,8 @@ class Block:
         y+=self.coords[1]
         self.move(x,y,f)
 
-    def delete(self):
-          pygame.draw.rect(self.surface,cst.BLACK,self.rect)
+    def delete(self,color=cst.BLACK):
+          pygame.draw.rect(self.surface,color,self.rect)
 
     def draw(self):
         pygame.draw.rect(self.surface,self.color,self.rect)

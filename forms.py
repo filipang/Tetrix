@@ -15,16 +15,18 @@ class Form:
             for b in self.blocks:
                 if not b.can(b.coords[0]+x,b.coords[1]+y):
                     return
-        for b in self.blocks:
-            pygame.draw.rect(b.surface, cst.BLACK, b.rect)
+        if(f):
+            self.delete()
+        else:
+            self.delete(cst.GRAY)
         for b in self.blocks:
             b.moveWith(x,y,False)
         self.center[0]+=x
         self.center[1]+=y
     
-    def delete(self):
+    def delete(self,color=cst.BLACK):
         for b in self.blocks:
-            b.delete()
+            b.delete(color)
     
     def rotate(self,offset_x = 0, offset_y = 0): #clock-wise rotation
 

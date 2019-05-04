@@ -45,7 +45,8 @@ class Tetris:
         #s=forms.Line([3,3],cst.BLUE,self.foreground)
         self.blocks[3][3]=block.Block(cst.GRAY,[3,3],False,self.foreground,self.blocks)
         self.ON = True
-        self.currentForm = forms.L1([2,2], self.foreground,self.blocks)
+        self.currentForm = forms.L1([5,2], self.foreground,self.blocks)
+        #self.currentForm=self.generator.get_piece()([5,2],self.foreground,self.blocks)
         self.draw()
         while self.ON:
 
@@ -80,6 +81,9 @@ class Tetris:
                     if(event.key==119):
                         self.currentForm.moveWith(0,-1)
 
+                    if(event.key==32):
+                        self.currentForm.lock()
+                        self.currentForm=self.generator.get_piece()([5,2],self.foreground,self.blocks)
                     #print (event.key)
             self.draw()
         exit()
