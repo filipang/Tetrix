@@ -9,7 +9,7 @@ def exit():
     pygame.quit()
     sys.exit()
 
-class Main_Thread:
+class Main:
     def __init__(self):
         pygame.init()
         self.Game=Game.Tetris()
@@ -19,26 +19,7 @@ class Main_Thread:
         try:
             #print("IN")
             while self.Game.ON:
-                None
-            #print("EXIT")
-        except KeyboardInterrupt:
-            None
-            
-        self.Game.ON=False
-        print("Score:",self.Game.Levels)
-        time.sleep(0.000000001)
-
-class Main_NoThread:
-    def __init__(self):
-        pygame.init()
-        self.Game=Game.Tetris()
-    def Start(self):
-        self.Game.run()
-    def Wait(self):
-        try:
-            #print("IN")
-            while self.Game.ON:
-                self.Game.run()
+               pygame.event.pump()
             #print("EXIT")
         except KeyboardInterrupt:
             None
@@ -48,7 +29,7 @@ class Main_NoThread:
         time.sleep(0.000000001)
     
 if(__name__=="__main__"):        
-    M=Main_NoThread()
+    M=Main()
     M.Start()
     M.Wait()
     exit()
