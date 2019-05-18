@@ -16,17 +16,18 @@ class Form:
                 return True
         return False
     
-    def moveWith(self,x,y,f=True):
+    def moveWith(self,x,y,f=True,draw=True):
         if(f):
             for b in self.blocks:
                 if not b.can(b.coords[0]+x,b.coords[1]+y):
                     return False
-        if(f):
-            self.delete()
-        else:
-            self.delete(cst.GRAY)
+        if draw:
+            if(f):
+                self.delete()
+            else:
+                self.delete(cst.GRAY)
         for b in self.blocks:
-            b.moveWith(x,y,False)
+            b.moveWith(x,y,False,draw)
         self.center[0]+=x
         self.center[1]+=y
         return True
@@ -35,7 +36,7 @@ class Form:
         for b in self.blocks:
             b.delete(color)
     
-    def rotate(self,offset_x = 0, offset_y = 0): #clock-wise rotation
+    def rotate(self,offset_x = 0, offset_y = 0,draw = True): #clock-wise rotation
 
         for b in self.blocks:
             x = b.coords[0]
@@ -51,28 +52,28 @@ class Form:
                     offx=[1,-1,0,0,-2,2,1,1,0,0,-1,-1,-1,1,-1,-2,1,2,-2,2]
                     offy=[0,0,1,-1,0,0,1,-1,2,-2,1,-1,2,-2,-2,1,2,-1,-1,1]
                     for i in range(len(offx)):
-                        if(self.rotate(offx[i],offy[i])):
+                        if(self.rotate(offx[i],offy[i],draw)):
                             return True
 
                     return False
                 else:
                     return False
 
+        if draw:
+            for b in self.blocks:
+                b.delete()
 
-        for b in self.blocks:
-            b.delete()
+            for b in self.blocks:
+                x = b.coords[0]
+                y = b.coords[1]
+                center_x = self.center[0]
+                center_y = self.center[1]
+                x = x - center_x
+                y = y - center_y
+                new_x = center_x - y
+                new_y = center_y + x
 
-        for b in self.blocks:
-            x = b.coords[0]
-            y = b.coords[1]
-            center_x = self.center[0]
-            center_y = self.center[1]
-            x = x - center_x
-            y = y - center_y
-            new_x = center_x - y
-            new_y = center_y + x
-
-            b.move(center_x-y+offset_x,center_y+x+offset_y,False)
+                b.move(center_x-y+offset_x,center_y+x+offset_y,False,draw)
 
         self.center[0]+=offset_x
         self.center[1]+=offset_y
@@ -100,8 +101,7 @@ class Square(Form):
         center[0]+=1
         self.blocks.append(block.Block(self.color,center,False,surface, board))
 
-    # Rotate sta
-    def rotate(self):
+    def rotate(self,aux1=None,aux2=None,aux3=None):
         return
     
 class L1(Form):

@@ -5,10 +5,8 @@ import block
 import forms
 import piece_constructor
 import time
-from threading import Thread
-
-
-    
+import robot as bot
+from threading import Thread   
     
 def matrix(n,m):
     M=[]
@@ -39,6 +37,12 @@ class Tetris(Thread):
         self.generator=piece_constructor.PieceConstructor(self.displayer,self.blocks)
         self.time_next=time.time()
         self.Levels=0
+        self.currentForm=self.generator.get_piece()([5,1],self.foreground,self.blocks)
+        self.didlock = True
+
+        if cst.BOT_PLAY == True:
+            self.robot = bot.Robot(self.foreground,self.blocks,self.currentForm,self.generator)
+
 
     def draw(self):
         self.screen.blit(self.background,(0,0))
@@ -52,6 +56,9 @@ class Tetris(Thread):
         for i in range (1,cst.BLOCK_HEIGHT+1):
             if(self.blocks[0][i]==cst.BLOCK_WIDTH):
                 self.Levels+=1
+
+                print("Score:"+str(self.Levels))
+
                 self.blocks[0][i]=0
                 for j in range (1,cst.BLOCK_WIDTH+1):
                     self.blocks[j][i].delete()
@@ -70,10 +77,6 @@ class Tetris(Thread):
         return True
     
     def run(self):
-        #s=forms.Line([3,3],cst.BLUE,self.foreground)
-        #self.blocks[3][3]=block.Block(cst.GRAY,[3,3],False,self.foreground,self.blocks)
-        #self.currentForm = forms.L1([5,2], self.foreground,self.blocks)
-        self.currentForm=self.generator.get_piece()([5,1],self.foreground,self.blocks)
         self.draw()
         while self.ON:
             for event in pygame.event.get():
@@ -81,42 +84,52 @@ class Tetris(Thread):
                     self.ON=False
                     break;
 
-                #ESC = exit()
-                if(event.type==pygame.KEYDOWN):
-                    if(event.key==27):
-                        self.ON=False
-                        break;
-                    #DOWN arrow down
-                    if(event.key==274):
-                        self.currentForm.moveWith(0,1)
+                if cst.BOT_PLAY == True:
+                    if self.didlock:
 
-                    #RIGHT arrow right
-                    if(event.key==275):
-                        self.currentForm.moveWith(1,0)
+                        self.didlock = False
 
-                    #LEFT arrow left
-                    if(event.key==276):
-                        self.currentForm.moveWith(-1,0)
+                        self.robot.update(self.blocks,self.currentForm,self.generator)
+                        self.robot.play()
 
-                    #ROTATE arrow up
-                    if(event.key==273):
-                        self.time_next=min(time.time()+cst.TIME_MAX,self.time_next+cst.TIME_ADD)
-                        self.currentForm.rotate()
-
-                    #UP w (DEBUGING FEATURE NOT BUG)
-                    if(event.key==119):
-                        self.currentForm.moveWith(0,-1)
-
-                    if(event.key==32):
-                        while(self.currentForm.moveWith(0,1)):
-                            None
-                        if not self.lock():
-                            #GAME OVER
+                else:
+                    if(event.type==pygame.KEYDOWN):
+                        #ESC = exit()
+                        if(event.key==27):
                             self.ON=False
-                            print("GAME OVER")
-                    #print (event.key)
+                            break;
+                        #DOWN arrow down
+                        if(event.key==274):
+                            self.currentForm.moveWith(0,1)
+
+                        #RIGHT arrow right
+                        if(event.key==275):
+                            self.currentForm.moveWith(1,0)
+
+                        #LEFT arrow left
+                        if(event.key==276):
+                            self.currentForm.moveWith(-1,0)
+
+                        #ROTATE arrow up
+                        if(event.key==273):
+                            self.time_next=min(time.time()+cst.TIME_MAX,self.time_next+cst.TIME_ADD)
+                            self.currentForm.rotate()
+
+                        #UP w (DEBUGING FEATURE NOT BUG)
+                        if(event.key==119):
+                            self.currentForm.moveWith(0,-1)
+
+                        if(event.key==32):
+                            while(self.currentForm.moveWith(0,1)):
+                                None
+                            if not self.lock():
+                                #GAME OVER
+                                self.ON=False
+                                print("GAME OVER")
+                        #print (event.key)
                 
             if(cst.GRAVITY and time.time()>=self.time_next):
+                self.didlock=True
                 self.time_next=time.time()+cst.TIME_MAX
                 if not self.currentForm.moveWith(0,1):#TRUE: a mutat
                     if not self.lock():
@@ -126,6 +139,9 @@ class Tetris(Thread):
                 
             self.draw()
 
+            if cst.BOT_PLAY== True:
+                pygame.event.post(pygame.event.Event(2))
+
 
 def main():
     game = Tetris()
@@ -133,4 +149,3 @@ def main():
 
 if(__name__=="__main__"):
     main()
-
