@@ -23,21 +23,26 @@ class Block:
             return False
         return (self.board[x][y]==None)
 
-    def move(self,x,y,f=True):
+    def move(self,x,y,f=True,draw=True):
         if(f):
             if(not(self.can(x,y))):
+                print ("Failded at ",x," ",y) 
                 return
-            pygame.draw.rect(self.surface,cst.BLACK,self.rect)
+            if draw:
+                pygame.draw.rect(self.surface,cst.BLACK,self.rect)
+
         self.coords[0]=x;
         self.coords[1]=y;
         x,y = get_position(x,y)
         self.rect = pygame.Rect(x+1,y+1,cst.BLOCK_SIZE-1,cst.BLOCK_SIZE-1)
-        pygame.draw.rect(self.surface,self.color,self.rect)
+        
+        if draw:
+            pygame.draw.rect(self.surface,self.color,self.rect)
 
-    def moveWith(self,x,y,f=True):
+    def moveWith(self,x,y,f=True,draw=True):
         x+=self.coords[0]
         y+=self.coords[1]
-        self.move(x,y,f)
+        self.move(x,y,f,draw)
 
     def delete(self,color=cst.BLACK):
           pygame.draw.rect(self.surface,color,self.rect)

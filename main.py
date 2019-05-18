@@ -1,20 +1,22 @@
-import Game
 import pygame
 import sys
 import time
 
+import Game
 
 def exit():
-    #print("BYE") #debug
     pygame.quit()
     sys.exit()
+    sys.setrecursionlimit(5000)
 
 class Main:
     def __init__(self):
         pygame.init()
         self.Game=Game.Tetris()
+
     def Start(self):
         self.Game.start()
+
     def Wait(self):
         try:
             #print("IN")
@@ -30,6 +32,8 @@ class Main:
     
 if(__name__=="__main__"):        
     M=Main()
+
     M.Start()
     M.Wait()
+
     exit()
